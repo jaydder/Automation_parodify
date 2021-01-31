@@ -5,32 +5,31 @@ Funcionalidade: Cadastro de Usuário
   Quero fazer o meu cadastro
   Para que eu possa ouvir minhas músicas favoritas
 
-@happy
-Cenario: Cadastro
-  Dado que acesso a página de cadastro
-  Quando submeto o meu cadastro com:
-    |email                |jaydder@gmail.com  |
-    |senha                |pwd123             |
-    |senha_confirma       |pwd123             |
-  Então devo ser redirecionado para a área logada
+  @happy
+  Cenario: Cadastro
+    Dado que acesso a página de cadastro
+    Quando submeto o meu cadastro com:
+      | email          | jaydder@gmail.com |
+      | senha          | pwd123            |
+      | senha_confirma | pwd123            |
+    Então devo ser redirecionado para a área logada
 
-@temp
-Cenario: Email não informado
-  Dado que acesso a página de cadastro
-  Quando submeto o meu cadastro sem o email
-  Então devo ver Oops! Informe seu email
+  Esquema do Cenário: Tentativa de cadastro
+    Dado que acesso a página de cadastro
+    Quando submeto o meu cadastro com:
+      | email          | <email>          |
+      | senha          | <senha>          |
+      | senha_confirma | <senha_confirma> |
+    Então devo ver a menssagem "<mensagem_saida>"
 
-Cenario: Senha não informada
-  Dado que acesso a página de cadastro
-  Quando submeto o meu cadastro sem a senha
-  Então devo ver Oops! Informe sua senha
+    Exemplos:
+      | email             | senha  | confirma_senha | mensagem_saida                       |
+      |                   | pwd123 | pwd123         | Oops! Informe seu email.             |
+      | jaydder@gmail.com |        |                | Oops! Informe sua senha.             |
+      | jaydder@gmail.com | pwd123 | 12344          | Oops! Senhas não são iguais.         |
+      |                   |        |                | Oops! Informe seu email e sua senha. |
 
-Cenario: Senha divergente
-  Dado que acesso a página de cadastro
-  Quando submeto meu cadastro com senha divergente
-  Então devo ver Opps! Senhas não são iguais
-
-Cenario: Nenhum campo preenchido
-  Dado que acesso a página de cadastro
-  Quando submeto meu cadastro sem preencher os campos
-  Então devo ver Opps! Informe seu email e sua senha
+  @temp
+  Cenario: Validação do campo email
+    Quando acesso a página de cadastro
+    Então deve exibir o seguinte css: "input[type=email]"

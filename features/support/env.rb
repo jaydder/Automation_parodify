@@ -1,8 +1,7 @@
 require "capybara"
 require "capybara/cucumber"
 
-require_relative 'helpers'
-
+require_relative "helpers"
 World(Helpers)
 
 Capybara.configure do |config|
